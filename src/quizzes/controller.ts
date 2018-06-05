@@ -8,7 +8,7 @@ export default class QuizController {
     getQuiz(
         @Param('id') id:  number
     ) {
-        return Quiz.findOne(id)
+        return Quiz.findOneById(id)
     }
 
     @Post('/quizzes')
@@ -23,7 +23,7 @@ export default class QuizController {
     async deleteQuiz(
         @Param('id') id: number 
     ) {
-        const quiz = await Quiz.findOne(id)
+        const quiz = await Quiz.findOneById(id)
 
         if (!quiz) throw new NotFoundError('Nothing to Delete here!')
 
