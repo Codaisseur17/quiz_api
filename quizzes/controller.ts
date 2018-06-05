@@ -6,14 +6,14 @@ export default class QuizController {
 
     @Get('/quizzes/:id')
     getQuiz(
-        @Param('id') id: number
+        @Param('id') id:  number
     ) {
         return Quiz.findOne(id)
     }
 
     @Post('/quizzes')
     @HttpCode(201)
-    createAdvert(
+    createQuiz(
         @Body() quiz: Quiz
     ) {
         return quiz.save()
