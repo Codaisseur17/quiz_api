@@ -2,6 +2,7 @@ import { createConnection } from 'typeorm'
 import { DefaultNamingStrategy } from 'typeorm/naming-strategy/DefaultNamingStrategy'
 import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyInterface'
 import { snakeCase } from 'typeorm/util/StringUtils'
+import Quiz from './quizzes/entities';
 
 class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
 
@@ -27,7 +28,7 @@ export default () =>
     type: "postgres",
     url: process.env.DATABASE_URL || 'postgres://codaisseur:pass@postgres:5432/codaisseur',
     entities: [
-      //...
+      Quiz,
     ],
     synchronize: true,
     logging: true,
