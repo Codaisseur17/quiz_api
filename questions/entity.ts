@@ -15,19 +15,19 @@ export default class Questions extends BaseEntity {
 
     @IsString()
     @Column('text', {nullable:true})
-    option1: string
+    A: string
 
     @IsString()
     @Column('text', {nullable:true})
-    option2: string
+    B: string
 
     @IsString()
     @Column('text', {nullable:true})
-    option3: string
+    C: string
 
     @IsString()
     @Column('text', {nullable:true})
-    option4: string
+    D: string
 
     @IsString()
     @Column('text', {nullable:false})
