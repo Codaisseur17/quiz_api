@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
 import { IsString } from 'class-validator';
 import Quiz from '../quizzes/entity';
@@ -33,7 +33,7 @@ export default class Questions extends BaseEntity {
     @Column('text', {nullable:false})
     correct_answer: string
 
-    @ManyToOne(_ => Quiz, quiz => quiz.questions)
+    @ManyToOne(_ => Quiz, quiz => quiz.questions, {eager:false})
     quiz: Quiz
 
 } 
