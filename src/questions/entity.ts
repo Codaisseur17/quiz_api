@@ -34,6 +34,6 @@ export default class Questions extends BaseEntity {
     correct_answer: string
 
     @ManyToOne(_ => Quiz, quiz => quiz.questions)
-    quiz:number
-    
+    quiz: Quiz
+
 } 
