@@ -16,7 +16,7 @@ export default class Quiz extends BaseEntity {
     @IsOptional()
     @IsString()
     @Column('text', {nullable:true})
-    webhook_url: string
+    webhookUrl: string
 
     @OneToMany(_ => Questions, question => question.quiz, {eager: true, cascadeInsert: true})
     questions: Questions[];
