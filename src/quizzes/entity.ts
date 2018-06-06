@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
-import { IsString } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 import Questions from '../questions/entity';
 
 @Entity() 
@@ -13,6 +13,7 @@ export default class Quiz extends BaseEntity {
     @Column('text', {nullable:false})
     title: string
 
+    @IsOptional()
     @IsString()
     @Column('text', {nullable:true})
     webhook_url: string
