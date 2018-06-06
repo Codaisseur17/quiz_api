@@ -1,14 +1,14 @@
-import { JsonController, NotFoundError, Post, HttpCode, Get, Put, Body, Param } from 'routing-controllers'
+import { JsonController, NotFoundError, Post, HttpCode, Get, Delete, Body, Param } from 'routing-controllers'
 import Questions from './entity';
 
 @JsonController()
 export default class QuestionsController {
 
     @Get('/questions/:id')
-    getQuiz(
-        @Param('id') id:  number
+    getQuestion(
+        @Param('id') id: number
     ) {
-        return Questions.findOne(id)
+        return Questions.findOneById(id)
     }
 
     @Post('/questions/:id')
@@ -23,7 +23,7 @@ export default class QuestionsController {
     async deleteQuestion(
         @Param('id') id: number 
     ) {
-        const quiz = await Questions.findOne(id)
+        const question = await Questions.findOneById(id)
 
         if (!question) throw new NotFoundError('Nothing to Delete here!')
 
