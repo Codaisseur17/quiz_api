@@ -34,6 +34,6 @@ export default class Questions extends BaseEntity {
     correctAnswer: string
 
     @ManyToOne(_ => Quiz, quiz => quiz.questions, {eager:false})
-    quiz: Quiz
+    quiz: Quiz;
 
 }
