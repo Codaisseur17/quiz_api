@@ -11,6 +11,12 @@ export default class QuizController {
         return Quiz.findOneById(id)
     }
 
+    @Get('/quizzes')
+    async allQuizzes(){
+        const quizzes = await Quiz.find()
+        return { quizzes }
+    }
+
     @Post('/quizzes')
     @HttpCode(201)
     createQuiz(
