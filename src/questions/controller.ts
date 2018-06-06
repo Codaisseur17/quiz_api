@@ -11,20 +11,18 @@ export default class QuestionsController {
         return Questions.findOneById(id)
     }
 
-    // @Post('/questions/:id')
-    // @HttpCode(201)
-    // createQuestion(
-    //     @Body() question: Questions
-    // ) {
-    //     return question.save()
-    // }
+    @Get('/questions')
+    async allQuestions(){
+        const questions = await Questions.find()
+        return { questions }
+    }
 
     @Post('/questions')
     @HttpCode(201)
     createQuestion(
-        @Body() question: Questions
+        @Body() questions: Questions
     ) {
-        return question.save()
+        return questions.save()
     }
 
 

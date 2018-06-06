@@ -31,7 +31,7 @@ export default class Questions extends BaseEntity {
 
     @IsString()
     @Column('text', {nullable:false})
-    correct_answer: string
+    correctAnswer: string
 
     @ManyToOne(_ => Quiz, quiz => quiz.questions, {eager:false})
     quiz: Quiz
