@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
 import { IsString } from 'class-validator';
-import Questions from '../quizzes/entity';
+// import Questions from '../quizzes/entity';
 
 @Entity() 
 export default class Quiz extends BaseEntity {
@@ -17,5 +17,5 @@ export default class Quiz extends BaseEntity {
     @Column('text', {nullable:true})
     webhook_url: string
     
-    @OneToMany(_ => Questions, question => question.quiz, {eager: false, cascade: false})
+    // @OneToMany(_ => Questions, question => question.quiz, {eager: false, cascade: false})
 } 
