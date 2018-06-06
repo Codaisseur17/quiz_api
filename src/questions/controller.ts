@@ -11,6 +11,13 @@ export default class QuestionsController {
         return Questions.findOneById(id)
     }
 
+    // @Post('/questions/:id')
+    // @HttpCode(201)
+    // createQuestion(
+    //     @Body() question: Questions
+    // ) {
+    //     return question.save()
+    // }
 
     @Post('/questions')
     @HttpCode(201)
