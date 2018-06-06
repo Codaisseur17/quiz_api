@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
 import { IsString } from 'class-validator';
-// import Quiz from '../quizzes/entity';
+import Quiz from '../quizzes/entity';
 
 @Entity() 
 export default class Questions extends BaseEntity {
@@ -32,6 +32,8 @@ export default class Questions extends BaseEntity {
     @IsString()
     @Column('text', {nullable:false})
     correct_answer: string
+
+    @ManyToOne(_ => Quiz, quiz => quiz.questions)
+    quiz:number
     
-    // @ManyToOne(_ => Quiz, quiz => quiz.questions, {eager: true, cascade: true})
 } 
