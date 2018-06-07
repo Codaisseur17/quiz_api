@@ -43,3 +43,8 @@ export default class QuestionsController {
         return 'Question Deleted.'
     }
 }
+
+// what do the UX want? Requests posted on Thursday
+// results based on tags. quizzes? or questions have tags?
+// feedback from the results. Base results on points based on tags?
+//check a person's scores per tag. 
