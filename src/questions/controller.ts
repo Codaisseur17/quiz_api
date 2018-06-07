@@ -23,8 +23,8 @@ export default class QuestionsController {
     async createQuestion(
         @Body() questions: Questions
     ) {
-        // const quiz = (await Quiz.findOneById(5))!
-        // questions.quiz = quiz
+        const quiz = (await Quiz.findOneById(questions.quiz))!
+        questions.quiz = quiz
         // quiz.questions = (quiz.questions || []).concat([questions])
         // await quiz.save()
         return questions.save()
