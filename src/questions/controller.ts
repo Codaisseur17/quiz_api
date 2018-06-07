@@ -1,5 +1,6 @@
 import { JsonController, NotFoundError, Post, HttpCode, Get, Delete, Body, Param } from 'routing-controllers'
 import Questions from './entity';
+import Quiz from '../quizzes/entity';
 
 @JsonController()
 export default class QuestionsController {
@@ -19,9 +20,13 @@ export default class QuestionsController {
 
     @Post('/questions')
     @HttpCode(201)
-    createQuestion(
+    async createQuestion(
         @Body() questions: Questions
     ) {
+        const quiz = (await Quiz.findOneById(5))!
+        questions.quiz = quiz
+        // quiz.questions = (quiz.questions || []).concat([questions])
+        // await quiz.save()
         return questions.save()
     }
 
