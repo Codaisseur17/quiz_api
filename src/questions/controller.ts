@@ -45,6 +45,7 @@ export default class QuestionsController {
 }
 
 // what do the UX want? Requests posted on Thursday
-// results based on tags. quizzes? or questions have tags?
+// results based on tags. quizzes? or questions have tags? -questions have tags
 // feedback from the results. Base results on points based on tags?
 //check a person's scores per tag. 
+// Multiple answers can be right.
