@@ -8,14 +8,17 @@ import {
   Body,
   Param,
   Delete,
-  CurrentUser
+  CurrentUser,
+  HttpError
 } from 'routing-controllers'
 import Quiz from './entity'
+import * as request from 'superagent'
 
 type User = {
   userId: number
   isTeacher: boolean
 }
+
 
 @JsonController()
 export default class QuizController {
@@ -33,10 +36,31 @@ export default class QuizController {
 
   @Post('/quizzes')
   @HttpCode(201)
-  createQuiz(
+  async createQuiz(
     @CurrentUser() user: User,
     @Body() quiz: Quiz) {
       if(!user.isTeacher)throw new BadRequestError("You Shall Not Pass!")
+      const quizhook = {
+        quizName: quiz.title,
+        url: quiz.webhookUrl
+      }
+      let forwardErr
+      const webHook = 'http://localhost:4004/quizhook'
+      // have to be async for err check
+      await request
+        .post(webHook)
+        .send(quizhook)
+        .then(res => {
+          // incoming response from webHook
+          console.log(res.text)
+        })
+        .catch(err => {
+          // incoming error from webHook
+          forwardErr = err
+          console.log(err)
+        })
+
+
     return quiz.save()
   }
 

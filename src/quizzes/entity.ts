@@ -3,10 +3,10 @@ import { BaseEntity } from 'typeorm/repository/BaseEntity'
 import { IsString, IsOptional } from 'class-validator';
 import Questions from '../questions/entity';
 
-@Entity() 
+@Entity()
 export default class Quiz extends BaseEntity {
 
-    @PrimaryGeneratedColumn() 
+    @PrimaryGeneratedColumn()
     id?: number
 
     @IsString()
@@ -21,4 +21,4 @@ export default class Quiz extends BaseEntity {
     @OneToMany(_ => Questions, question => question.quiz, {eager: true, cascadeInsert: true})
     questions: Questions[];
 
-} 
+}
