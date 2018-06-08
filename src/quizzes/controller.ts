@@ -1,6 +1,7 @@
 import {
   JsonController,
   NotFoundError,
+  BadRequestError,
   Post,
   HttpCode,
   Get,
@@ -25,17 +26,20 @@ export default class QuizController {
 
   @Get('/quizzes')
   async allQuizzes(@CurrentUser() user: User) {
-    console.log(user)
-
     const quizzes = await Quiz.find()
     return { quizzes }
   }
 
+
   @Post('/quizzes')
   @HttpCode(201)
-  createQuiz(@Body() quiz: Quiz) {
+  createQuiz(
+    @CurrentUser() user: User,
+    @Body() quiz: Quiz) {
+      if(!user.isTeacher)throw new BadRequestError("You Shall Not Pass!")
     return quiz.save()
   }
+
 
   @Delete('/quizzes/:id')
   async deleteQuiz(@Param('id') id: number) {
