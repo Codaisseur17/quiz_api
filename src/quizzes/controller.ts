@@ -19,22 +19,6 @@ type User = {
   isTeacher: boolean
 }
 
-class WebHookError extends HttpError {
-  public message: string
-  public args: any[]
-  constructor(message: string, args: any[] = []) {
-    super(503)
-    Object.setPrototypeOf(this, ExtApiError.prototype)
-    this.message = message
-    this.args = args
-  }
-  toJSON() {
-    return {
-      statusCode: this.httpCode,
-      message: this.message,
-    }
-  }
-}
 
 @JsonController()
 export default class QuizController {
@@ -60,7 +44,7 @@ export default class QuizController {
         quizName: quiz.title,
         url: quiz.webhookUrl
       }
-
+      let forwardErr
       const webHook = 'http://localhost:4004/quizhook'
       // have to be async for err check
       await request
