@@ -1,5 +1,10 @@
-import { JsonController, NotFoundError, Post, HttpCode, Get, Body, Param, Delete } from 'routing-controllers'
+import { JsonController, NotFoundError, Post, HttpCode, Get, Body, Param, Delete, CurrentUser } from 'routing-controllers'
 import Quiz from './entity'
+
+type User = {
+    userId: number,
+    isTeacher: boolean
+}
 
 @JsonController()
 export default class QuizController {
@@ -20,8 +25,11 @@ export default class QuizController {
     @Post('/quizzes')
     @HttpCode(201)
     createQuiz(
+        @CurrentUser() user: User,
         @Body() quiz: Quiz
     ) {
+        console.log(user.userId)
+        console.log(user.isTeacher)//in case you want to check if a user is a teacher.
         return quiz.save()
     }
 
