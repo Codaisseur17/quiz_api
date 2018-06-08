@@ -45,7 +45,7 @@ export default class QuizController {
         url: quiz.webhookUrl
       }
       let forwardErr
-      const webHook = 'http://localhost:4004/quizhook'
+      const webHook = process.env.WEBHOOKS_URL || 'http://webhooks:4004/quizhook'
       // have to be async for err check
       await request
         .post(webHook)
