@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
 import { IsString, IsOptional } from 'class-validator';
 import Questions from '../questions/entity';
-// import User from '../../../users/src/entities/users'
 
 @Entity()
 export default class Quiz extends BaseEntity {
