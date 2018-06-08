@@ -11,10 +11,28 @@ import {
   CurrentUser
 } from 'routing-controllers'
 import Quiz from './entity'
+import * as request from 'superagent'
 
 type User = {
   userId: number
   isTeacher: boolean
+}
+
+class WebHookError extends HttpError {
+  public message: string
+  public args: any[]
+  constructor(message: string, args: any[] = []) {
+    super(503)
+    Object.setPrototypeOf(this, ExtApiError.prototype)
+    this.message = message
+    this.args = args
+  }
+  toJSON() {
+    return {
+      statusCode: this.httpCode,
+      message: this.message,
+    }
+  }
 }
 
 @JsonController()
@@ -33,10 +51,32 @@ export default class QuizController {
 
   @Post('/quizzes')
   @HttpCode(201)
-  createQuiz(
+  async createQuiz(
     @CurrentUser() user: User,
     @Body() quiz: Quiz) {
       if(!user.isTeacher)throw new BadRequestError("You Shall Not Pass!")
+      const quizhook = {
+        quizName: quiz.title,
+        url: quiz.webHookUrl
+      }
+
+      const webHookUrl = 'http://localhost:4004/quizhook'
+      let forwardErr
+      // have to be async for err check
+      await request
+        .post(webHookUrl)
+        .send(quizhook)
+        .then(res => {
+          // incoming response from webHook
+          console.log(res.text)
+        })
+        .catch(err => {
+          // incoming error from webHook
+          forwardErr = err
+          console.log(err)
+        })
+
+
     return quiz.save()
   }
 
