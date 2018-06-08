@@ -8,7 +8,8 @@ import {
   Body,
   Param,
   Delete,
-  CurrentUser
+  CurrentUser,
+  HttpError
 } from 'routing-controllers'
 import Quiz from './entity'
 import * as request from 'superagent'
@@ -57,14 +58,13 @@ export default class QuizController {
       if(!user.isTeacher)throw new BadRequestError("You Shall Not Pass!")
       const quizhook = {
         quizName: quiz.title,
-        url: quiz.webHookUrl
+        url: quiz.webhookUrl
       }
 
-      const webHookUrl = 'http://localhost:4004/quizhook'
-      let forwardErr
+      const webHook = 'http://localhost:4004/quizhook'
       // have to be async for err check
       await request
-        .post(webHookUrl)
+        .post(webHook)
         .send(quizhook)
         .then(res => {
           // incoming response from webHook
